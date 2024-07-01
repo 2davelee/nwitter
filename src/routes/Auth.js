@@ -1,5 +1,5 @@
 import { authService } from "fbase";
-import { getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider} from "firebase/auth";
 import AuthForm from "components/AuthForm"
 
 function Auth() {
@@ -11,7 +11,7 @@ function Auth() {
       if (name === "google") {
         provider = new GoogleAuthProvider();
       } else if (name === "github") {
-        provider = new firebaseInstance.auth.GithubAuthProvider();
+        provider = new GithubAuthProvider();
       }
     
       const data = await signInWithPopup(authService, provider);
