@@ -1,5 +1,5 @@
 import { dbService } from "fbase";
-import { query, collection, onSnapshot } from 'firebase/firestore'
+import { query, collection, onSnapshot, orderBy } from 'firebase/firestore'
 import { useState, useEffect } from "react";
 import Nweet from "components/Nweet";
 import NweetFactory from "components/NweetFactory";
@@ -7,7 +7,7 @@ import NweetFactory from "components/NweetFactory";
 function Home({ userObj }) {
     const [nweets, setNweets] = useState([]);
     const getNweets = async () => {
-        const q = query(collection(dbService, 'nweets'));
+        const q = query(collection(dbService, 'nweets'), orderBy('createdAt', 'desc'));
         onSnapshot(q, (snapshot) => {
             const nweetArray = snapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -21,9 +21,9 @@ function Home({ userObj }) {
     }, []);
 
     return (
-      <div>
+      <div className="container">
           <NweetFactory userObj={userObj} />
-        <div>
+        <div style={{ marginTop: 30 }}>
             {nweets.map((nweet) => (
               <Nweet 
                 key={nweet.id} 

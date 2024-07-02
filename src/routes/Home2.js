@@ -64,21 +64,5 @@ export default Home;
 
 
 Profile2
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 
-const getMyNweets =async () => {
-    const q = query(
-        collection(dbService, "nweets"),
-        where("creatorId", "==", userObj.uid),
-        orderBy("createdAt", "asc")
-    );
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data()); 
-    });    
-};
-
-useEffect(() => {
-    getMyNweets();
-}, []);
